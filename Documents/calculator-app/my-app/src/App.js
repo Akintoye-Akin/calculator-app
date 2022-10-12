@@ -1,145 +1,84 @@
-import "./App.css";
-import { useState, useEffect } from "react";
+import "./App.css"
+import {useState } from "react"
+
+
 
 function App() {
-  const [preState, setPreState] = useState("");
-  const [curState, setCurState] = useState("");
-  const [input, setInput] = useState("0");
-  const [operator, setOperator] = useState(null);
-  const [total, setTotal] = useState(false);
+  const [calc, setCalc] = useState("");
+  const [result, setResult] = useState("");
+  const ops = ["/", "*", "+", "-", "."]
 
-  const inputNum = (e) => {
-    if (curState.includes(".") && e.target.innerText === ".") return;
-    if (total) {
-      setPreState("");
+  const updateCalc = value =>{   
+ if(
+    ops.includes(value) && calc === "" || ops.includes(value) &&  ops.includes (calc.slice (-1))
+ ){ 
+    return; 
+ }
+
+    setCalc (calc + value)
+    if (!ops.includes (value)){
+      setResult( eval(calc + value).toString())
     }
-    curState
-      ? setCurState(curState + e.target.innerText)
-      : setCurState(e.target.innerText);
-    setTotal(false);
-  };
 
-  useEffect(() => {
-    setInput(curState);
-  }, [curState]);
-
-  useEffect(() => {
-    setInput("0");
-  }, []);
-
-  const operatorType = (e) => {
-    setTotal(false);
-    setOperator(e.target.innerText);
-    if (curState === "") return
-    if (preState !== "") {
-      equals();
-    } else {
-      setPreState(curState);
-      setCurState("");
-    }
-  };
-
-  const equals = (e) => {
-    if (e?.target.innerText === "="){ 
-      setTotal(true);
-  };
-
-  let cal;
-  switch (operator) {
-    case "/":
-      cal = String(parseFloat(preState) / parseFloat(curState));
-      break;
-    case "+":
-      cal = String(parseFloat(preState) + parseFloat(curState));
-      break;
-    case "X":
-      cal = String(parseFloat(preState) * parseFloat(curState));
-      break;
-    case "-":
-      cal = String(parseFloat(preState) - parseFloat(curState));
-      break;
-    default:
-      return;
-    }
-    setInput("");
-    setPreState(cal);
-    setCurState("");
   }
-  
-  const reset = (e) => {
-    setPreState("");
-    setCurState("");
-    setInput("0");
-  };
 
-  const minusPlus = (e) => {};
 
-  const percent = (e) => {};
+
+let createDigits = ( ) => {
+let  digits = [];
+for (let i = 1; i < 10; i++ ){
+  digits.push(  
+<button 
+onClick={( )=>{ updateCalc (i.toString())}} 
+
+
+key= {i}> {i}</button>
+
+  )
+}
+return digits;
+
+}
+const calculate = () =>{ setCalc (eval  (calc).toString())}
+
+const deleteLast = () =>{
+  if (calc === ""){
+      return;
+  } const value = calc.slice (0, -1)
+  setCalc (value)
+};
+
+
+
 
   return (
     <div className="container">
-      <div className="wrapper">
-        <div className="screen">{input}</div>
-        <div className="btn light-gray" onClick={reset}>
-          AC
+      <div className="calculator">
+        <div className="display">
+          { result ?  <span> ({result}) </span> : " " }
+          
+          {calc || "0" }
         </div>
-        <div className="btn light-gray" onClick={percent}>
-          %
+        <div className="operators">
+          <button onClick={ () => updateCalc("/") }>/ </button>
+          <button  onClick={( )=>{ updateCalc ("+")}}  >+</button>
+          <button onClick={( )=>{ updateCalc ("-")}}  >-</button>
+          <button onClick={( )=>{ updateCalc ("*")}}  >*</button>
+
+
+          <button onClick={deleteLast}> DEL </button>
         </div>
-        <div className="btn light-gray" onClick={minusPlus}>
-          +/-
-        </div>
-        <div className="btn orange" onClick={operatorType}>
-          /
-        </div>
-        <div className="btn" onClick={inputNum}>
-          7
-        </div>
-        <div className="btn" onClick={inputNum}>
-          8
-        </div>
-        <div className="btn" onClick={inputNum}>
-          9
-        </div>
-        <div className="btn orange" onClick={operatorType}>
-          X
-        </div>
-        <div className="btn" onClick={inputNum}>
-          4
-        </div>
-        <div className="btn" onClick={inputNum}>
-          5
-        </div>
-        <div className="btn" onClick={inputNum}>
-          6
-        </div>
-        <div className="btn orange" onClick={operatorType}>
-          +
-        </div>
-        <div className="btn" onClick={inputNum}>
-          1
-        </div>
-        <div className="btn" onClick={inputNum}>
-          2
-        </div>
-        <div className="btn" onClick={inputNum}>
-          3
-        </div>
-        <div className="btn orange" onClick={operatorType}>
-          -
-        </div>
-        <div className="btn zero" onClick={inputNum}>
-          0
-        </div>
-        <div className="btn" onClick={inputNum}>
-          .
-        </div>
-        <div className="btn equal" onClick={equals}>
-          =
-        </div>
+
+        <button> DEL </button>
+        <div className="digits">
+          {createDigits()}
+          <button onClick={( )=>{ updateCalc ("0")}}  > 0 </button>
+          <button onClick={( )=>{ updateCalc (".   ")}} > . </button>
+          <button onClick={  calculate} > = </button>
+          </div>
       </div>
     </div>
-  )
-};
+  );
+}
 
 export default App;
