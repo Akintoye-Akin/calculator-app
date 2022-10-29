@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import "./App.css"
 import {useState } from "react"
 
@@ -39,7 +40,7 @@ key= {i}> {i}</button>
 return digits;
 
 }
-const calculate = () =>{ setCalc (eval(calc).toString())}
+const calculate = () => { setCalc (eval(calc).toString())}
 
 const deleteLast = () =>{
   if (calc === ""){
