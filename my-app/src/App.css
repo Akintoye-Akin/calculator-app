@@ -1,83 +1,84 @@
-:root{
-  --primary : coral;
-  --secondary : gray;
-  --dark: green;
-  --light: #eee;
-  }
-  
-  *{
-  margin:0;
+* {
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  
-  }
-  body{
-    background-color:  var(--light);
-  }
-  .container{
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  
-  }
-  
-  .calculator{
-    width: 100%;
-    max-width: 400px;
-    background-color: white;
-    border-radius: 13px;
-    overflow: hidden;
-    box-shadow: 0px 2px 64px  rgba (0, 0, 0.2) ;
-  
-  }
-  
-  .display  {
-    padding: 16px;
-    text-align: right;
-    font-size: 20px;
-    background-color:  var(--dark);
-    color: var(--light);
-    font-size: 24px;
-    font-weight: 200;
-  }
-  .display span{
-    font-size: 14px;
-    color: #b281fb;
-  
-  }
-    button{
-    appearance: none;
-    border: none;
-    outline: none;
-    color: #eee;
-    padding: 16px;
-    cursor: pointer;
-    font-size: 42x;
-  transition: 0.4s;
-  }
-  button:hover{
-    opacity: 0.9;
-  }
-  
-  .operators {
-    display: flex;
-  }
-  
-  .operators button{
-    flex: 1 1 0%;
-    background-color: var(--primary);
-    font-weight: 700;
-  }
-  
-  .digits{
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .digits button {
-    flex: 1 1 33.333%;
-  max-width: 33.333%;
-  background-color: var(--dark);
-  }
+  -webkit-user-drag: none;
+  -webkit-app-region: none;
+}
+
+body {
+  background-color: rgb(135, 197, 222);
+  display: grid;
+  place-content: center;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  font-size: 2rem;
+}
+
+.container {
+  height: 80vh;
+  width: 50vh;
+  background-color: black;
+  border-radius: 1rem;
+  padding: 1rem;
+  -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.wrapper {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.screen {
+  grid-column: 1 / -1;
+  color: white;
+  text-align: right;
+  padding: 0.5rem;
+  font-size: 4rem;
+  overflow: hidden;
+}
+
+.btn {
+  display: grid;
+  place-content: center;
+  background-color: rgb(240, 169, 143);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn:hover {
+  background-color: coral;
+}
+
+.coral {
+  background-color: coral;
+  color: black;
+}
+
+.coral:hover {
+  background-color: white;
+}
+
+.red {
+  background-color: red;
+}
+
+.red:hover {
+  background-color: white;
+  color: red;
+}
+
+.zero {
+  grid-column: 1 / span 2;
+  border-radius: 25px;
+  place-content: unset;
+  align-items: center;
+  padding-left: 2rem;
+}
